@@ -1,38 +1,117 @@
-.App {
+@keyframes movingGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+body.sunny {
+  background: linear-gradient(270deg, #87CEEB, #00BFFF);
+  animation: movingGradient 10s linear infinite;
+}
+
+body.cloudy {
+  background: linear-gradient(270deg, #81919f, #c6c5a5);
+  animation: movingGradient 10s linear infinite;
+}
+
+body.stormy {
+  background: linear-gradient(270deg, #545454, #696969);
+  animation: movingGradient 10s linear infinite;
+}
+
+body.rainy {
+  background: linear-gradient(270deg, #A9A9A9, #B0C4DE);
+  animation: movingGradient 10s linear infinite;
+}
+
+body.night {
+  background: linear-gradient(270deg, #001F3F, #003366);
+  animation: none; /* No animation for night */
+}
+
+.weather-container {
+  position: relative;
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.weather-title {
+  text-shadow: 0px 0px 15px #777;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.weather-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width:100%;
+  justify-content: space-around;
+}
+
+.weather-icon {
+  width: 30%;
+  margin-bottom: 10px;
+  min-width: 20%
+}
+
+.temperature {
+  font-size: 175px;
+  font-weight: bold;
   color: white;
+  text-shadow: 0px 0px 15px #777;
 }
 
-.App-link {
-  color: #61dafb;
+@media (max-width: 768px) {
+  .temperature {
+    font-size: 8cap; /* Smaller screens (mobile) */
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 1024px) {
+  .temperature {
+    font-size: 13rem; /* Larger screens (desktop) */
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.location, .ip, .wind {
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 0px 0px 15px #777;
+}
+
+.loading, .error {
+  font-size: 18px;
+  color: #f11;
+  text-align: center;
+}
+
+.wind-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+}
+
+.wind-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+}
+
+.wind-label {
+  position: absolute;
+  color: white;
+  text-shadow: 0px 0px 15px #777;
+  font-size: 12px;
 }
