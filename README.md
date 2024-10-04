@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The Weather App is a full-stack application that fetches and displays current and historical weather data based on the user's location. It utilizes an Express server to handle API requests and a React front-end to present the data in a user-friendly interface.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Fetches current weather data including temperature and wind speed.
+- Displays weekly maximum and minimum temperatures with weather codes.
+- Retrieves historical weather data from the past years.
+- Interactive line chart visualizing maximum temperatures and weather conditions.
+- Dynamic background based on current weather conditions.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React, Material-UI (MUI)
+- **Backend**: Node.js, Express
+- **APIs**: Open Meteo, IPinfo
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+/weather-app
+│
+├── server.js             # Express server for handling API requests
+│
+└── src                   # React application
+    ├── App.js            # Main application component
+    ├── index.js          # Application entry point
+    ├── img               # Folder containing weather icons
+    └── App.css           # CSS styles for the application
+```
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Make sure you have the following installed:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   git clone https://github.com/TallenPeli/Burzowy
+   cd weather-app
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Navigate to the root directory and install the server dependencies:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Navigate to the `src` directory and install the frontend dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   cd src
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Running the Application
 
-### Code Splitting
+1. Start the Express server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   node ../server.js
+   ```
 
-### Analyzing the Bundle Size
+   The server will run on `http://localhost:5000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Open a new terminal, navigate back to the `src` directory, and start the React application:
 
-### Making a Progressive Web App
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   The React app will run on `http://localhost:3000`.
 
-### Advanced Configuration
+### Building for Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To create a production build of the React application, follow these steps:
 
-### Deployment
+1. Navigate to the `src` directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+   ```bash
+   cd src
+   ```
 
-### `npm run build` fails to minify
+2. Build the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   npm run build
+   ```
+
+   This will create an optimized production build in the `build` folder.
+
+3. You can serve the built application using a static file server, or you can integrate it into your Express server by serving the `build` directory.
+
+### Deploying the Application
+
+To deploy your application, you can use various hosting services like Heroku, Vercel, or DigitalOcean. Here’s a general approach:
+
+1. Make sure your Express server serves the built React app from the `build` folder.
+2. Set up a production environment on your chosen hosting service.
+3. Push your code to the hosting service and follow their deployment instructions.
+
+## Usage
+
+Upon starting the application, the Weather App will fetch the user's location using their IP address and display the current weather conditions along with a chart visualizing the weekly temperatures and conditions. The app will also show historical weather data for comparison.
+
+## Contributing
+
+If you would like to contribute to the project, please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+```
