@@ -1,4 +1,4 @@
-# Weather App
+# Burzowy - React
 
 ## Overview
 
@@ -21,7 +21,7 @@ The Weather App is a full-stack application that fetches and displays current an
 ## Project Structure
 
 ```
-/weather-app
+/Burzowy
 │
 ├── server.js             # Express server for handling API requests
 │
@@ -47,7 +47,7 @@ Make sure you have the following installed:
 
    ```bash
    git clone https://github.com/TallenPeli/Burzowy
-   cd weather-app
+   cd Burzowy
    ```
 
 2. Navigate to the root directory and install the server dependencies:
