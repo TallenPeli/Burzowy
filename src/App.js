@@ -151,15 +151,15 @@ function WeatherApp() {
         setRegion(data.region);
         setCountry(data.country);
         setTemperature(data.temperature);
-        setWindSpeed(data.windSpeed);
-        setWindDirection(data.windDirection);
-        setWeekWeatherCodes(data.weekWeatherCodes); // Now it's an array
-        setWeekMaxTemperatures(data.weekMaxTemperatures); // Now it's an array
-        setWeatherHistory(data.weatherHistory); // Set historical data
+        setWindSpeed(data.windspeed); // Corrected property name
+        setWindDirection(data.windDirection || 'N/A'); // Default if not provided
+        setWeekWeatherCodes(data.week_weather_codes); // Now it's an array
+        setWeekMaxTemperatures(data.week_max_temperatures); // Now it's an array
+        setWeatherHistory(data.weather_history); // Set historical data
 
         let weatherIcon;
         let bgClass;
-        switch (data.weatherCode) {
+        switch (data.weathercode) { // Corrected property name
           case 0:
             weatherIcon = sun;
             bgClass = 'sunny';
@@ -267,3 +267,4 @@ function WeatherApp() {
 }
 
 export default WeatherApp;
+

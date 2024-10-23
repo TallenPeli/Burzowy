@@ -1,3 +1,4 @@
+use actix_cors::Cors; // Import the CORS crate
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use chrono::prelude::*;
 use reqwest;
@@ -58,16 +59,22 @@ struct WeatherData {
 #[get("/weather")]
 async fn get_weather() -> impl Responder {
     let client = reqwest::Client::new();
+    let mut error_log = Vec::new();
 
     // Fetch user's IP info
-    let ip_info_response = client
-        .get(IPINFO_URL)
-        .send()
-        .await
-        .unwrap()
-        .json::<IpInfo>()
-        .await
-        .unwrap();
+    let ip_info_response: IpInfo = match client.get(IPINFO_URL).send().await {
+        Ok(response) => match response.json().await {
+            Ok(data) => data,
+            Err(err) => {
+                error_log.push(format!("Failed to parse IP info: {}", err));
+                return HttpResponse::InternalServerError().json("Failed to fetch IP information");
+            }
+        },
+        Err(err) => {
+            error_log.push(format!("Error fetching IP info: {}", err));
+            return HttpResponse::InternalServerError().json("Failed to fetch IP information");
+        }
+    };
 
     let location: Vec<&str> = ip_info_response.loc.split(',').collect();
     let lat = location[0];
@@ -79,14 +86,21 @@ async fn get_weather() -> impl Responder {
         OPEN_METEO_CURRENT_URL, lat, lon
     );
 
-    let current_weather_response = client
-        .get(&current_weather_url)
-        .send()
-        .await
-        .unwrap()
-        .json::<serde_json::Value>()
-        .await
-        .unwrap();
+    let current_weather_response: serde_json::Value =
+        match client.get(&current_weather_url).send().await {
+            Ok(response) => match response.json().await {
+                Ok(data) => data,
+                Err(err) => {
+                    error_log.push(format!("Failed to parse current weather: {}", err));
+                    return HttpResponse::InternalServerError()
+                        .json("Failed to fetch current weather");
+                }
+            },
+            Err(err) => {
+                error_log.push(format!("Error fetching current weather: {}", err));
+                return HttpResponse::InternalServerError().json("Failed to fetch current weather");
+            }
+        };
 
     let current_weather = current_weather_response["current_weather"].clone();
     let forecast = current_weather_response["daily"].clone();
@@ -98,7 +112,6 @@ async fn get_weather() -> impl Responder {
     let day = today.day();
 
     let mut weather_history = Vec::new();
-    let mut error_log = Vec::new();
 
     // Fetch historical weather data
     for year in (1940 + ((current_year - 1) % 10)..=current_year - 1).step_by(5) {
@@ -122,6 +135,8 @@ async fn get_weather() -> impl Responder {
                         date: date.clone(),
                         mean_temperature: temperature_mean,
                     });
+                } else {
+                    error_log.push(format!("Failed to parse historical data for {}", year));
                 }
             }
             Err(err) => {
@@ -168,8 +183,18 @@ async fn get_weather() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(get_weather))
-        .bind(("0.0.0.0", 5000))?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .wrap(
+                Cors::default() // Enable CORS
+                    .allowed_origin("http://localhost:3000") // Replace with your web client's origin
+                    .allowed_methods(vec!["GET", "POST", "OPTIONS"]) // Specify allowed methods
+                    .allowed_headers(vec!["Content-Type", "Authorization"]) // Specify allowed headers
+                    .max_age(3600),
+            ) // Cache preflight response for 1 hour
+            .service(get_weather)
+    })
+    .bind(("127.0.0.1", 5000))?
+    .run()
+    .await
 }
