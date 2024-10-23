@@ -110,7 +110,7 @@ To create a production build of the React application, follow these steps:
 
    This will create an optimized production build in the `build` folder.
 
-3. You can serve the built application using a static file server, or you can integrate it into your Express server by serving the `build` directory.
+3. You can serve the built application using a static file server, or you can integrate it into your backend server by serving the `build` directory.
 
 ## Usage
 
