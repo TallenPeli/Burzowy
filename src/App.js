@@ -141,7 +141,7 @@ function WeatherApp() {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/weather');
+        const response = await fetch('http://0.0.0.0:5000/weather'); // REPLACE WITH YOUR SERVER'S IP ADDRESS
         const data = await response.json();
 
         setIp(data.ip);

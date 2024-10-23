@@ -187,14 +187,14 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(
                 Cors::default() // Enable CORS
-                    .allowed_origin("http://localhost:3000") // Replace with your web client's origin
+                    .allow_any_origin() // Replace with your web client's origin
                     .allowed_methods(vec!["GET", "POST", "OPTIONS"]) // Specify allowed methods
                     .allowed_headers(vec!["Content-Type", "Authorization"]) // Specify allowed headers
                     .max_age(3600),
             ) // Cache preflight response for 1 hour
             .service(get_weather)
     })
-    .bind(("127.0.0.1", 5000))?
+    .bind(("0.0.0.0", 5000))?
     .run()
     .await
 }
