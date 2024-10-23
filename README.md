@@ -23,13 +23,16 @@ The Weather App is a full-stack application that fetches and displays current an
 ```
 /Burzowy
 │
-├── server.js             # Express server for handling API requests
+├── src                   # React application
+│   ├── App.js            # Main application component
+│   ├── index.js          # Application entry point
+│   ├── img               # Folder containing weather icons
+│   └── App.css           # CSS styles for the application
 │
-└── src                   # React application
-    ├── App.js            # Main application component
-    ├── index.js          # Application entry point
-    ├── img               # Folder containing weather icons
-    └── App.css           # CSS styles for the application
+└── backend
+    ├── src
+    │   └── main.rs       # Express server for handling API 
+    └── Cargo.toml        # Build information
 ```
 
 ## Getting Started
@@ -38,8 +41,10 @@ The Weather App is a full-stack application that fetches and displays current an
 
 Make sure you have the following installed:
 
-- Node.js (v14 or higher)
 - npm (Node Package Manager)
+- Rustc (Rust Compiler)
+- Cargo (Rust Build System)
+- Rustup (Optional, but recommended)
 
 ### Installation
 
@@ -65,10 +70,16 @@ Make sure you have the following installed:
 
 ### Running the Application
 
-1. Start the Express server:
+1. Start the backend server:
 
+   **Compile Backend**
    ```bash
-   node ../server.js
+   cd backend
+   cargo build --release
+   ```
+   **Run Backend**
+   ```bash
+   ./target/release/weather-api
    ```
 
    The server will run on `http://localhost:5000`.
@@ -100,14 +111,6 @@ To create a production build of the React application, follow these steps:
    This will create an optimized production build in the `build` folder.
 
 3. You can serve the built application using a static file server, or you can integrate it into your Express server by serving the `build` directory.
-
-### Deploying the Application
-
-To deploy your application, you can use various hosting services like Heroku, Vercel, or DigitalOcean. Here’s a general approach:
-
-1. Make sure your Express server serves the built React app from the `build` folder.
-2. Set up a production environment on your chosen hosting service.
-3. Push your code to the hosting service and follow their deployment instructions.
 
 ## Usage
 
