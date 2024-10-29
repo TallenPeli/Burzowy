@@ -15,7 +15,7 @@ The Weather App is a full-stack application that fetches and displays current an
 ## Tech Stack
 
 - **Frontend**: React, Material-UI (MUI)
-- **Backend**: Node.js, Express
+- **Backend**: Rust
 - **APIs**: Open Meteo, IPinfo
 
 ## Project Structure
